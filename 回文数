@@ -1,0 +1,24 @@
+/**
+判断一个整数是否是回文数。回文数是指正序（从左向右）和倒序（从右向左）读都是一样的整数
+**/
+//同颠倒整数一样
+//用栈就可以了
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x<0){
+            return false;
+        }
+        int xx = x;
+        int r = 0;
+        while(xx!=0){
+            int temp = xx % 10;
+            xx = xx / 10;
+            r = r * 10 + temp;
+        }
+        if(r == x){
+            return true;
+        }else{
+            return false;
+        }
+    }
+}
