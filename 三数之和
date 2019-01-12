@@ -1,0 +1,50 @@
+/**
+给定一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？找出所有满足条件且不重复的三元组。
+注意：答案中不可以包含重复的三元组。
+**/
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        //先排序
+        Arrays.sort(nums);
+        int inums = Integer.MAX_VALUE;
+        int jnums = Integer.MAX_VALUE;
+        int knums = Integer.MAX_VALUE;
+        List<List<Integer>> re = new ArrayList<>();
+        //a+b+c = 0  且得到的答案按大小排序 则组合第一个的数定为非正数
+        for(int i = 0;i<nums.length&&nums[i]<=0;i++){
+            //一次将以nums[i]为第一个元素的组合找完，下次若nums[i]还是inums则定重复
+            if(inums == nums[i]){
+                continue;
+            }
+            int j = i + 1;
+            int k = nums.length-1;
+            
+            while(j<k){
+               if(nums[i] + nums[j] + nums[k] > 0){
+                   k--;
+               }else if(nums[i] + nums[j] + nums[k] < 0){
+                   j++;
+               }else{
+                   //组合不同
+                   if(jnums!=nums[j]||knums!=nums[k]){
+                       List<Integer> list = new ArrayList<>();
+                       inums = nums[i];
+                       jnums = nums[j];
+                       knums = nums[k];
+                       list.add(inums);
+                       list.add(jnums);
+                       list.add(knums);
+                       re.add(list);
+                       k--;
+                   }
+                   //重复组合
+                   else{
+                       k--;
+                       j++;
+                   }
+               }
+            }
+        }
+        return re;
+    }
+}
